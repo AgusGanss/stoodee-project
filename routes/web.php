@@ -26,9 +26,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/favicon', function () {
     $theme = session('theme', 'light'); // Contoh: mengambil tema dari session
