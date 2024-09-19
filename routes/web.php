@@ -10,6 +10,8 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IklanController;
+use App\Http\Controllers\IklanDalamController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TemplateController;
@@ -95,6 +97,21 @@ Route::get('/login-backoffice', [LoginController::class, 'login'])->name('login.
 Route::post('/login-proses', [LoginController::class, 'proses'])->name('login.proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+
+Route::get('/iklan', [IklanController::class, 'iklan'])->name('iklan');
+Route::get('/iklan-tambah', [IklanController::class, 'tambah'])->name('iklan.tambah');
+Route::post('/iklan-insert', [IklanController::class, 'insert'])->name('iklan.insert');
+Route::get('/iklan-delete/{id}', [IklanController::class, 'delete'])->name('iklan.delete');
+Route::get('/iklan-edit/{id}', [IklanController::class, 'edit'])->name('iklan.edit');
+Route::post('/iklan-update/{id}', [IklanController::class, 'update'])->name('iklan.update');
+
+
+Route::get('/iklan-dalam', [IklanDalamController::class, 'iklan'])->name('iklan.dalam');
+Route::get('/iklan-dalam-tambah', [IklanDalamController::class, 'tambah'])->name('iklan.dalam.tambah');
+Route::post('/iklan-dalam-insert', [IklanDalamController::class, 'insert'])->name('iklan.dalam.insert');
+Route::get('/iklan-dalam-delete/{id}', [IklanDalamController::class, 'delete'])->name('iklan.dalam.delete');
+Route::get('/iklan-dalam-edit/{id}', [IklanDalamController::class, 'edit'])->name('iklan.dalam.edit');
+Route::put('/iklan-dalam-update/{id}', [IklanDalamController::class, 'update'])->name('iklan.dalam.update');
 
 
 

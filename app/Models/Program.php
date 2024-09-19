@@ -24,4 +24,8 @@ class Program extends Model
     public function mail(){
         return $this->hasMany(Mail::class);
     }
+
+    public function iklandalam(){
+        return $this->hasMany(IklanDalam::class);
+    }
 }

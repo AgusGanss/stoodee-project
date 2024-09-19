@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Contact;
+use App\Models\Iklan;
 use App\Models\Review;
+use App\Models\Contact;
 use App\Models\Content;
 use App\Models\General;
+use App\Models\IklanDalam;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -18,12 +20,15 @@ class HomeController extends Controller
         $program = Program::all();
         $review = Review::all();
         $contact = Contact::all();
+        $iklan = Iklan::where('status','active')->latest()->first();
         $blog = Blog::orderBy('tanggal','desc')->get()->take(3);
-        return view('home',compact('general','content','program','review','blog','contact'));
+        return view('home',compact('general','content','program','review','blog','contact','iklan'));
     }
 
     public function program($slug){
-        $program = Program::where('slug', $slug)->firstOrFail();
+        $program = Program::with(['iklandalam' => function ($query) {
+            $query->where('status', 'active');
+        }])->where('slug', $slug)->firstOrFail();
         $general = General::first();
         return view('program-detail', compact('program','general'));
     }

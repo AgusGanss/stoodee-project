@@ -150,6 +150,17 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Media Sosial</span></a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('iklan') }}">
+                  <i class="fas fa-fw fa-chart-area"></i>
+                  <span>Iklan</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('iklan.dalam') }}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Iklan Dalam Program</span></a>
+        </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -269,6 +280,11 @@
               .create( document.querySelector( '#ckeditor' ));
         </script>
 
+<script type="text/javascript">
+  ClassicEditor
+        .create( document.querySelector( '#ck' ));
+  </script>
+
     <script>
         function comfirmDelete(deleteUrl) {
             Swal.fire({
@@ -370,6 +386,44 @@ Toast.fire({
 @endif
 
 @if(session('insert-contact'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Add Data Success"
+});
+</script>
+@endif
+@if(session('insert-iklan'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Add Data Success"
+});
+</script>
+@endif
+@if(session('insert-iklandalam'))
 <script>
   const Toast = Swal.mixin({
   toast: true,
@@ -508,6 +562,63 @@ Toast.fire({
 });
 </script>
 @endif
+@if(session('update-program'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Update Data Success"
+});
+</script>
+@endif
+@if(session('update-iklan'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Update Data Success"
+});
+</script>
+@endif
+@if(session('update-iklandalam'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Update Data Success"
+});
+</script>
+@endif
 
 
 
@@ -611,6 +722,44 @@ Toast.fire({
 </script>
 @endif
 @if(session('blog-delete'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Delete Data Success"
+});
+</script>
+@endif
+@if(session('delete-iklan'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Delete Data Success"
+});
+</script>
+@endif
+@if(session('delete-iklandalam'))
 <script>
   const Toast = Swal.mixin({
   toast: true,
