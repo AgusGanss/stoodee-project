@@ -12,6 +12,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IklanController;
 use App\Http\Controllers\IklanDalamController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TemplateController;
@@ -41,6 +42,7 @@ Route::get('/favicon', function () {
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/program-detail/{slug}', [HomeController::class, 'program'])->name('program.show');
 Route::get('/blog-detail/{slug}', [HomeController::class, 'blog'])->name('blog.show');
+Route::get('/blog/{slug}', [HomeController::class, 'blog_fillter'])->name('blog.fillter');
 Route::get('/blog-all', [HomeController::class, 'blog_all'])->name('blog.all');
 
 Route::get('/mail', [MailController::class, 'mail'])->name('mail')->middleware('auth');
@@ -72,6 +74,7 @@ Route::post('/program-update/{id}', [ProgramController::class, 'update'])->name(
 Route::get('/review', [ReviewController::class, 'review'])->name('review');
 Route::get('/review-tambah', [ReviewController::class, 'tambah'])->name('review.tambah');
 Route::post('/review-insert', [ReviewController::class, 'insert'])->name('review.insert');
+Route::post('/review-insert-home', [ReviewController::class, 'insert_home'])->name('review.insert.home');
 Route::get('/review-delete/{id}', [ReviewController::class, 'delete'])->name('review.delete');
 Route::get('/review-edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
 Route::post('/review-update/{id}', [ReviewController::class, 'update'])->name('review.update');
@@ -112,6 +115,14 @@ Route::post('/iklan-dalam-insert', [IklanDalamController::class, 'insert'])->nam
 Route::get('/iklan-dalam-delete/{id}', [IklanDalamController::class, 'delete'])->name('iklan.dalam.delete');
 Route::get('/iklan-dalam-edit/{id}', [IklanDalamController::class, 'edit'])->name('iklan.dalam.edit');
 Route::put('/iklan-dalam-update/{id}', [IklanDalamController::class, 'update'])->name('iklan.dalam.update');
+
+Route::get('/backoffice/kategori/checkSlug', [KategoriController::class, 'checkSlug'])->name('checkSlug');
+Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
+Route::get('/kategori-tambah', [KategoriController::class, 'tambah'])->name('kategori.tambah');
+Route::post('/kategori-insert', [KategoriController::class, 'insert'])->name('kategori.insert');
+Route::get('/kategori-delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
+Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::post('/kategori-update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 
 
 

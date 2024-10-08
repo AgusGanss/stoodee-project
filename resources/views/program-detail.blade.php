@@ -132,56 +132,66 @@
             transform: scale(1.1);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* Container utama */
+.container1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-        .iklan-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
+/* Pengaturan grid untuk wrapper iklan */
+.iklan-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
 
-        .iklan-item {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            position: relative;
-        }
+/* Item iklan */
+.iklan-item {
+    padding: 0px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
 
-        .iklan-item:hover {
-            transform: scale(1.05);
-        }
+.iklan-item:hover {
+    transform: scale(1.05);
+}
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            background: #000;
-        }
+/* Video Container */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: auto; /* Tinggi mengikuti rasio video */
+    overflow: hidden;
+    border-radius: 10px;
+}
 
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+.video-container video {
+    width: 100%;
+    height: auto; /* Sesuaikan tinggi sesuai rasio video */
+    object-fit: contain; /* Jaga proporsi video */
+}
 
-        .foto-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            object-fit: cover;
-        }
+/* Foto Container */
+.foto-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.foto-container img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Sesuaikan sesuai kebutuhan */
+    object-fit: cover; /* Pastikan gambar tetap memenuhi kontainer */
+    border-radius: 10px;
+}
+
+
         @media screen and (max-width: 768px) {
             .program-details {
                 flex-direction: column;
@@ -233,7 +243,7 @@
                 padding: 10px 20px;
             }
 
-            .container {
+            .container1 {
                 padding: 10px;
             }
         }
@@ -260,34 +270,36 @@
         </div>
 
 
-        <div class="container">
-            <div class="iklan-wrapper">
-                <!-- Iklan Video -->
-                <div class="iklan-item video-container">
-                    @foreach($program->iklandalam as $iklan)
-                    <a href="{{ $iklan->link }}">
-                    @if($iklan->video)
-                        <video  autoplay muted class="hidden-controls"> 
-                            <source src="{{ asset('video/' . $iklan->video) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                    @endif
-                </a>
-            @endforeach
-                </div>
-                <div class="iklan-item foto-container">
-                    @foreach($program->iklandalam as $iklan)
-                    <a href="{{ $iklan->link }}">
-                        @if($iklan->foto)
-                                <img src="{{ asset('foto/' . $iklan->foto) }}" alt="Iklan Foto">
-                        @else
-    
-                        @endif
-                    </a>
-                @endforeach
-                </div>
-            </div>
+          <div class="container1">
+           <div class="iklan-wrapper">
+    <!-- Iklan Video -->
+    <div class="iklan-item video-container">
+        @foreach($program->iklandalam as $iklan)
+        <a href="{{ $iklan->link }}">
+        @if($iklan->video)
+            <video autoplay loop muted class="hidden-controls"> 
+                <source src="{{ asset('video/' . $iklan->video) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        @else
+        @endif
+        </a>
+        @endforeach
+    </div>
+
+    <!-- Iklan Foto -->
+    <div class="iklan-item foto-container">
+        @foreach($program->iklandalam as $iklan)
+        <a href="{{ $iklan->link2 }}">
+            @if($iklan->foto)
+                <img src="{{ asset('foto/' . $iklan->foto) }}" alt="">
+            @else
+            @endif
+        </a>
+        @endforeach
+    </div>
+</div>
+
         </div>
 
         <div class="form-container" id="contact-us">

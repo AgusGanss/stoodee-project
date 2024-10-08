@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Mail;
 use App\Models\General;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -27,13 +28,15 @@ class BlogController extends Controller
             ->paginate(5);
         $unreadCount = Mail::where('is_read', false)->count();
         $general = General::first();
-        return view('dashboard.blog', compact('blog','search','unreadCount','general'));
+        $kategori = Kategori::all();
+        return view('dashboard.blog', compact('blog','search','unreadCount','general','kategori'));
     }
 
     public function tambah(){
         $unreadCount = Mail::where('is_read', false)->count();
         $general = General::first();
-        return view('dashboard.tambah-blog',compact('unreadCount','general'));
+        $kategori = Kategori::all();
+        return view('dashboard.tambah-blog',compact('unreadCount','general','kategori'));
     }
 
     public function insert(Request $request){
@@ -60,7 +63,8 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         $unreadCount = Mail::where('is_read', false)->count();
         $general = General::first();
-        return view('dashboard.edit-blog', compact('blog','unreadCount','general'));
+        $kategori = Kategori::all();
+        return view('dashboard.edit-blog', compact('blog','unreadCount','general','kategori'));
     }
 
     public function update(Request $request, $id){
@@ -75,6 +79,7 @@ class BlogController extends Controller
         $blog->tanggal = $validatedData['tanggal'];
         $blog->content_blog = $validatedData['content_blog'];
         $blog->slug = $request->slug;
+        $blog->kategori_id = $request->kategori_id;
     
         if ($request->hasFile('gambar_blog')) {
             // Jika ada file gambar baru diupload

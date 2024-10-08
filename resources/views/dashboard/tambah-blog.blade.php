@@ -34,6 +34,13 @@
               </div>
           @enderror
       </div>
+      <label for="">Kategori</label>
+      <select class="form-select mb-3" name="kategori_id" aria-label="Default select example">
+        <option selected>Select Kategori</option>
+        @foreach ( $kategori as $kategoris )
+        <option value="{{ $kategoris->id }}">{{ $kategoris->kategori }}</option>
+        @endforeach
+      </select>
       <button type="submit" class="submit-btn">Submit</button>
     </form>
   </div>

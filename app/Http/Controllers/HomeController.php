@@ -9,6 +9,7 @@ use App\Models\Contact;
 use App\Models\Content;
 use App\Models\General;
 use App\Models\IklanDalam;
+use App\Models\Kategori;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class HomeController extends Controller
         $contact = Contact::all();
         $iklan = Iklan::where('status','active')->latest()->first();
         $blog = Blog::orderBy('tanggal','desc')->get()->take(3);
-        return view('home',compact('general','content','program','review','blog','contact','iklan'));
+        $kategori =  Kategori::all();
+        return view('home',compact('general','content','program','review','blog','contact','iklan','kategori'));
     }
 
     public function program($slug){
@@ -39,6 +41,17 @@ class HomeController extends Controller
         $recentBlogs = Blog::latest()->take(5)->get();
         $program = Program::orderBy('created_at', 'desc')->get();
         return view('blog-detail', compact('blog','general','recentBlogs','program'));
+    }
+
+    public function blog_fillter($slug)
+    {
+        $kategori = Kategori::where('slug', $slug)->firstOrFail();
+        $blog = $kategori->blog()->paginate(10); // Adjust the number as needed
+        $general = General::first();
+        $recentBlogs = Blog::latest()->take(5)->get();
+        $program = Program::orderBy('created_at', 'desc')->get();
+        
+        return view('blog-filter', compact('kategori', 'blog', 'general', 'program', 'recentBlogs'));
     }
 
     public function blog_all(Request $request){

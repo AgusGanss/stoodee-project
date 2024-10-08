@@ -5,7 +5,7 @@
   <div class="form-container">
     <form class="elegant-form" action="{{ route('blog.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
       @csrf
-      <h2>Add Blog</h2>
+      <h2>Edit Blog</h2>
       <div class="form-group image-input-group">
         <label for="gambar_program">Gambar Blog</label>
         <input type="file" id="gambar_program" name="gambar_blog">
@@ -34,6 +34,14 @@
               </div>
           @enderror
       </div>
+      <label for="">Kategori</label>
+      <select class="form-select mb-3" name="kategori_id" aria-label="Default select example">
+        <option selected>Select Kategori</option>
+        @foreach ( $kategori as $kategoris )
+        <option value="{{ $kategoris->id }}"{{ old('kategori_id', $blog->kategori_id) == $kategoris->id ? 'selected' : '' }}>
+          {{ $kategoris->kategori }}
+        @endforeach
+      </select>
       <button type="submit" class="submit-btn">Submit</button>
     </form>
   </div>

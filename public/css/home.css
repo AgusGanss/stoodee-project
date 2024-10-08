@@ -62,89 +62,1426 @@ a {
     color: black;
 }
 /* IKLAN */
-  .ad-modal {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+.ad-modal {
+    display: none; /* Modal tidak terlihat di awal */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Background semi-transparent */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
 
-        .ad-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
+.ad-modal.show {
+    display: flex; /* Menampilkan modal ketika class 'show' ada */
+}
 
-        .ad-modal-content {
-            background-color: #fefefe;
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 90%;
-            max-height: 90%;
-            overflow: auto;
-            position: relative;
-            transform: scale(0.7);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
+.ad-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+}
 
-        .ad-modal.show .ad-modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
+.ad-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
 
-        .ad-close {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
 
-        .ad-close:hover,
-        .ad-close:focus {
-            color: #000;
-        }
+.ad-modal-content {
+    background-color: #fff;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 400px; /* Ukuran default modal */
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    animation: fadeIn 0.4s ease;
+}
 
-        .ad-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            max-height: 70vh;
-            object-fit: contain;
-        }
+.ad-modal-content img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover; /* Mengatur gambar agar sesuai dengan wadah */
+}
 
-        .button-bottom {
-            margin-top: 15px;
-            text-align: center;
-        }
+.button-bottom {
+    text-align: center;
+}
 
-        .ad-cta {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+.ad-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradasi warna yang menarik */
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.5); /* Bayangan lembut */
+}
 
-        .ad-cta:hover {
-            background-color: #45a049;
-        }
+.ad-cta:hover {
+    background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Gradasi terbalik saat hover */
+    box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6); /* Tambah intensitas bayangan */
+    transform: scale(1.05); /* Efek perbesar tombol saat hover */
+}
+
+.ad-cta:active {
+    transform: scale(0.98); /* Efek kecil ketika tombol ditekan */
+    box-shadow: 0 3px 10px rgba(255, 126, 95, 0.5); /* Bayangan lebih kecil saat ditekan */
+}
+
+/* Keyframes for modal fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 450px) {
+    .ad-modal-content {
+        width: 90%; /* Mengatur lebar modal untuk perangkat kecil */
+        padding: 10px; /* Mengurangi padding untuk perangkat kecil */
+    }
+
+    .ad-cta {
+        font-size: 14px; /* Sesuaikan ukuran font untuk perangkat kecil */
+        padding: 10px 20px; /* Kurangi padding agar proporsional */
+    }
+
+
+    .ad-close {
+        font-size: 24px; /* Mengurangi ukuran tombol tutup untuk perangkat kecil */
+    }
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #e16026;
+    box-shadow: 0 0 0 2px rgba(225, 96, 38, 0.2);
+}
+
+.form-group button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #c94e1e;
+    transform: translateY(-2px);
+}
+
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* KATEGORI */
+.ignielHorizontal {
+    width: 100%;
+    overflow-x: auto; /* Aktifkan manual scroll */
+    background: #e16026;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth; /* Smooth scroll saat manual */
+    white-space: nowrap;
+}
+
+/* Sembunyikan scroll bar */
+.ignielHorizontal::-webkit-scrollbar {
+    display: none; /* Untuk Chrome, Safari, dan Opera */
+}
+
+.ignielHorizontal {
+    -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+    scrollbar-width: none; /* Untuk Firefox */
+}
+
+.ignielHorizontal ul {
+    display: flex;
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    justify-content: flex-start; /* Letakkan kategori di sebelah kiri */
+    align-items: center; /* Pusatkan secara vertikal */
+}
+
+.ignielHorizontal li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.ignielHorizontal a {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    text-align: center;
+}
+
+.ignielHorizontal a:hover {
+    background-color: #1dd058;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* HEADER */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+.navbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+.navbar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar img {
+    height: 40px;
+    width: auto;
+    transition: all 0.3s ease;
+    user-select: text;
+}
+.navbar.scrolled {
+    background-color: #e16026;
+}
+.img-header {
+    width: 100%;
+}
+.img-header img {
+    width: 100%;
+    height: 700px;
+    filter: brightness(70%);
+}
+.judul-header {
+    position: absolute;
+    z-index: 3;
+    top: 250px;
+    text-align: center;
+    width: 100%;
+}
+.judul-header h1 {
+    font-size: 60px;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+}
+.judul-header p {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(243, 179, 60);
+    margin-top: -40px;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* MENGAPA  MEMILIH STOODEE */
+.judul-content-satu {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1dd058;
+    border-radius: 50px;
+    padding: 10px;
+    margin-left: 30%;
+    margin-top: 10px;
+}
+.judul-content-satu h1 {
+    font-size: 25px;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+}
+.content-satu {
+    display: flex; /* Menggunakan flexbox layout */
+    flex-wrap: wrap; /* Mengizinkan pembungkusan elemen */
+    width: 100%; /* Lebar penuh container */
+    box-sizing: border-box;
+    user-select: none;
+    pointer-events: none;
+}
+.content-satu .card {
+    flex: 0 0 20%; /* Membuat setiap elemen card mengambil 20% dari lebar container */
+    text-align: center; /* Menyelaraskan teks ke tengah */
+    padding: 10px; /* Memberikan padding ke elemen card */
+    box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran total */
+    margin-bottom: 10px; /* Jarak antara elemen card secara vertikal */
+    margin-top: 20px;
+    user-select: none;
+    pointer-events: none;
+}
+.content-satu .card .logo img {
+    height: 100px;
+}
+.logo {
+    position: relative;
+    display: inline-block;
+    border: none; /* Menghapus border jika ada */
+    background: none; /* Menghapus background color */
+    padding: 0; /* Menghapus padding jika ada */
+    margin: 0;
+}
+
+.logo img {
+    transition: opacity 0.3s ease;
+}
+
+.content-satu .card .logo img {
+    height: 100px;
+    background: none; /* Pastikan background logo transparan */
+    border: none; /* Menghapus border jika ada */
+}
+.hover-image {
+    position: absolute;
+    left: 0px;
+    opacity: 0;
+}
+
+.logo:hover .default-image {
+    opacity: 0;
+}
+
+.logo:hover .hover-image {
+    opacity: 1;
+}
+.content-satu .card h1 {
+    font-size: 25px;
+    border-bottom: 2px solid grey;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* PROGRAM */
+.judul-content-dua {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e16026;
+    margin-top: 50px;
+}
+.judul-content-dua h1 {
+    color: white;
+    margin: 50px;
+}
+.card .content-card .description {
+    color: grey;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-height: 4.5em; /* Adjust this value to show more or fewer lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    user-select: none;
+    pointer-events: none;
+}
+.content-dua {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+}
+.content-dua .card img {
+    height: 300px;
+    width: 400px;
+    border-radius: 10px 10px 0 0;
+}
+.content-dua .card {
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 1px 100px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    margin-top: 30px;
+    margin-left: 20px;
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.content-dua .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.content-dua .card .content-card {
+    padding: 15px;
+}
+.content-dua .card a {
+    text-decoration: none;
+    background-color: #1dd058;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.content-dua .card a:hover {
+    background-color: #14aa46;
+    transition: 0.5s;
+    background-color: #14aa46;
+    transform: scale(1.05);
+}
+
+/* REVIEW */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+.elegant-form h2 {
+    text-align: center;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.image-input-group input[type="file"] {
+    display: none;
+}
+.image-input-group label {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.image-preview {
+    margin-top: 10px;
+    max-width: 100%;
+    height: 150px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+.star-rating input {
+    display: none;
+}
+.star-rating label {
+    cursor: pointer;
+    font-size: 25px;
+    color: #ddd;
+    transition: color 0.2s;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #ffd700;
+}
+.submit-btn{
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.open-popup-btn {
+    background-color: #e16026;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    transition: 0.5s;
+    margin-left: 40px;
+}
+.submit-btn:hover {
+    background-color: #45a049;
+}
+.open-popup-btn:hover{
+    background-color: #9d3b15;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.review {
+    margin-top: 100px;
+}
+.review h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1dd058;
+    width: 40%;
+    margin-left: 30%;
+    padding: 10px;
+    color: #fff;
+    border-radius: 100px;
+    user-select: none;
+    pointer-events: none;
+}
+.swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 400px;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 0 15px 50px rgb(0, 0, 0, 0.2);
+    filter: blur(2px);
+    border-radius: 10px;
+}
+.swiper-slide-active {
+    filter: blur(0px);
+}
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right {
+    background-image: none;
+}
+.testimonialBox {
+    display: grid;
+    place-items: center;
+}
+.testimonialBox .content-testimoni {
+    padding: 20px;
+    text-align: center;
+}
+.testimonialBox img {
+    height: 120px;
+    width: 120px;
+    margin-top: 10px;
+    border-radius: 100%;
+}
+
+/* NEWS */
+.news {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+.news .card-news {
+    width: 350px;
+    padding: 0 30px 0 30px;
+}
+.news .card-news img {
+    height: 200px;
+}
+.content-news .date {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+.content-news .date p {
+    margin-left: 5px;
+}
+.content-news .date img {
+    height: 20px;
+}
+.content-news .deskripsi p {
+    color: rgb(104, 98, 98);
+    padding-bottom: 10px;
+}
+.content-news a {
+    font-weight: 200;
+    text-decoration: none;
+    color: #000;
+    border: 3px solid #1dd058;
+    padding: 12px;
+    border-radius: 60px;
+    margin-top: 5px;
+}
+.content-news a:hover {
+    color: #fff;
+    background-color: #1dd058;
+    transition: 0.5s;
+}
+.read-more {
+    float: right;
+    margin-right: 200px;
+    margin-top: 60px;
+}
+.read-more a {
+    text-decoration: none;
+    color: #14aa46;
+    display: flex;
+    align-items: center;
+}
+.read-more a:hover {
+    color: #0b6e2c;
+}
+/* ALAMAT */
+.alamat {
+    width: 100%;
+    max-width: 1200px; /* Sesuaikan dengan lebar maksimum yang diinginkan */
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 100px;
+    margin-top: 150px;
+    border-top: 2px solid #1dd058;
+}
+
+.content-alamat {
+    display: flex;
+    align-items: center;
+    gap: 100px; /* Jarak antara peta dan card alamat */
+}
+
+.content-alamat iframe {
+    flex: 0 0 600px; /* Lebar tetap 400px */
+    height: 450px;
+}
+
+.card-alamat {
+    flex: 1;
+    min-width: 0; /* Memungkinkan card untuk menyusut jika diperlukan */
+}
+
+.card-alamat .deskripsi {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara ikon dan teks */
+    padding: 5px;
+}
+
+.card-alamat .deskripsi img {
+    width: 35px; /* Sesuaikan ukuran ikon */
+    height: auto;
+}
+
+.card-alamat .deskripsi p {
+    margin: 0;
+    font-size: 20px; /* Sesuaikan ukuran font */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.form-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e16026;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #c94e1e;
+}
+/* FOOTER */
+.footer {
+    width: 100%;
+    height: 50px;
+    background-color: #e16026;
+    margin-top: 10px;
+}
+.footer .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer .footer-content p {
+    color: #fff;
+    font-weight: 100;
+}
+
+@media (max-width: 1920px) {
+    .content-dua {
+        margin-left: 80px;
+    }
+
+    .content-dua .card {
+        width: 450px;
+        margin: 20px;
+    }
+
+    .content-dua .card img {
+        width: 450px;
+        height: 300px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Ukuran layar 1600x900 */
+@media (max-width: 1600px) {
+    .content-dua {
+        margin-left: 100px;
+    }
+
+    .content-dua .card {
+        width: 400px;
+        margin: 20px;
+    }
+
+    .content-dua .card img {
+        width: 400px;
+        height: 280px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 2.3rem;
+    }
+}
+
+/* Ukuran layar 1440x900 */
+@media (max-width: 1440px) {
+    .content-dua {
+        margin-left: 50px;
+    }
+
+    .content-dua .card {
+        width: 380px;
+        margin: 20px;
+    }
+
+    .content-dua .card img {
+        width: 380px;
+        height: 260px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 2.1rem;
+    }
+}
+
+/* Ukuran layar 1366x768 */
+@media (max-width: 1366px) {
+    .content-dua {
+        margin-left: 80px;
+    }
+
+    .content-dua .card {
+        width: 340px;
+        margin: 20px;
+    }
+
+    .content-dua .card img {
+        width: 340px;
+        height: 240px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 2rem;
+        margin: 40px;
+    }
+}
+
+/* Ukuran layar 1280x800 */
+/* Ukuran layar laptop dengan resolusi 1280x800 */
+@media (max-width: 1280px) {
+    .judul-header {
+    width: 1200px;
+}
+    .judul-content-satu {
+    width: 50%;
+    margin-left: 35%;
+}
+    .content-dua {
+        margin-left: 0;
+    }
+
+    .content-dua .card {
+        width: 300px;
+        margin: 10px;
+    }
+
+    .content-dua .card img {
+        width: 300px;
+        height: 200px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 1.8rem;
+        margin: 20px;
+    }
+}
+
+/* Ukuran layar laptop dengan resolusi 1024x768 */
+@media (max-width: 1024px) {
+    .img-header img {
+    width: 1200px;
+    height: 700px;
+}
+
+.content-satu {
+    width: 1200px; /* Lebar penuh container */
+}
+.content-satu .card {
+    flex: 0 0 20%; /* Membuat setiap elemen card mengambil 20% dari lebar container */
+    text-align: center; /* Menyelaraskan teks ke tengah */
+    padding: 10px; /* Memberikan padding ke elemen card */
+    box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran total */
+    margin-bottom: 10px; /* Jarak antara elemen card secara vertikal */
+    margin-top: 20px;
+    user-select: none;
+    pointer-events: none;
+}
+    .judul-content-dua{
+        width: 1200px;
+    }
+   .content-dua {
+    margin-left: 170px;
+}
+    .content-dua .card {
+        width: 280px;
+        margin: 10px auto;
+    }
+
+    .content-dua .card img {
+        width: 280px;
+        height: 180px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 1.6rem;
+        margin: 20px;
+        text-align: center;
+    }
+}
+
+/* Ukuran layar laptop dengan resolusi 800x600 */
+@media (max-width: 800px) {
+    .content-dua {
+        margin-left: 10px;
+        flex-direction: column;
+    }
+
+    .content-dua .card {
+        width: 250px;
+        margin: 10px auto;
+    }
+
+    .content-dua .card img {
+        width: 250px;
+        height: 150px;
+    }
+
+    .judul-content-dua h1 {
+        font-size: 1.4rem;
+        margin: 15px;
+        text-align: center;
+    }
+}
+
+/* Existing styles remain unchanged */
+
+/* Tablet Styles */
+@media screen and (max-width: 768px) {
+
+    .category-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .category-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-item {
+        flex: 0 0 auto;
+        width: auto;
+        margin-right: 12px;
+        scroll-snap-align: start;
+    }
+    
+    /* Header */
+    .judul-header {
+        left: 40px;
+        top: 200px;
+    }
+    .judul-header h1 {
+        font-size: 45px;
+    }
+    .judul-header p {
+        font-size: 18px;
+        margin-top: -30px;
+    }
+    .img-header img {
+        height: 500px;
+        width: 807px;
+    }
+
+    /* Mengapa Memilih Stoodee */
+    .judul-content-satu {
+        width: 80%;
+        margin-left: 12%;
+    }
+    .content-satu {
+        justify-content: space-around;
+        margin-left: 20px;
+        user-select: none;
+        pointer-events: none;
+    }
+    .content-satu .card {
+        flex: 0 0 30%;
+    }
+
+    /* Program */
+    .judul-content-dua {
+        width: 807px;
+    }
+    .content-dua {
+        justify-content: space-around;
+        margin-left: 0;
+    }
+    .content-dua .card {
+        width: 45%;
+        margin-left: 30px;
+    }
+
+    .content-dua .card img {
+        height: 300px;
+        width: 345px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    /* Review */
+    .review h1 {
+        width: 60%;
+        margin-left: 20%;
+    }
+    .swiper-slide {
+        width: 350px;
+    }
+
+    /* News */
+    .news {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .news .card-news {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .news .card-news .img-news {
+        height: 500px;
+    }
+    .read-more {
+        float: left;
+        margin-left: 30px;
+        margin-top: 0px;
+    }
+
+    /* Alamat */
+    .content-alamat {
+        flex-direction: column;
+        gap: 50px;
+    }
+    .form-container {
+        width: 80%;
+    }
+    .floating-contact-button {
+        bottom: 100px;
+        right: 10px;
+    }
+
+    .contact-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .contact-icon i {
+        font-size: 35px;
+    }
+    .footer {
+        width: 807px;
+        height: 50px;
+        background-color: #e16026;
+        margin-top: 10px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+
+    .ignielHorizontal {
+        width: 500px;
+        padding: 10px 0;
+    }
+
+    .category-container {
+        padding: 10px;
+        margin-left: 0px;
+        width: 500px;
+    }
+
+    .category-grid {
+        gap: 10px;
+    }
+
+    .category-item {
+        padding: 8px 12px;
+        font-size: 15px;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    /* Header */
+    .judul-header {
+        left: 55px;
+        right: 0;
+        top: 130px;
+        width: 100%;
+    }
+    .judul-header h1 {
+        font-size: 30px;
+    }
+    .judul-header p {
+        font-size: 13px;
+        margin-top: -20px;
+    }
+    .img-header img {
+        height: 300px;
+        width: 500px;
+    }
+
+    /* Mengapa Memilih Stoodee */
+    .judul-content-satu {
+        width: 100%;
+        margin-left: 40px;
+    }
+    .judul-content-satu h1 {
+        font-size: 20px;
+    }
+    .content-satu {
+        width: 100%;
+        margin-left: -30px;
+        flex-direction: column;
+    }
+    .content-satu .card {
+        width: 100%;
+        padding: 20px;
+        margin-left: 17%;
+    }
+
+    /* Program */
+    .judul-content-dua {
+        width: 500px;
+    }
+    .content-dua {
+        margin-left: 80px;
+    }
+    .content-dua .card {
+        width: 100%;
+        margin-left: 0;
+    }
+    .content-dua .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Review */
+
+    .review h1 {
+        background-color: #1dd058;
+        width: 100%;
+        margin-left: 8%;
+        padding: 10px;
+        color: #fff;
+        border-radius: 100px;
+    }
+    .swiper {
+        width: 500px;
+    }
+    .swiper-slide {
+        width: 300px;
+    }
+
+    /* News */
+    .news {
+        flex-direction: column;
+    }
+    .news .card-news .img-news {
+        height: 200px;
+    }
+    .news .card-news {
+        width: 300px;
+        margin-bottom: 30px;
+        margin-left: 40px;
+    }
+    .news .card-news .deskripsi {
+        width: 350px;
+    }
+    .read-more {
+        float: left;
+        margin-top: 10px;
+        margin-left: 30px;
+    }
+
+    /* Alamat */
+    .alamat {
+        margin-left: 10px;
+    }
+    .content-alamat {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .form-container {
+        margin-left: -20px;
+        width: 450px;
+    }
+    .card-alamat .deskripsi p {
+        white-space: normal;
+    }
+    /* FOOTER */
+    .footer {
+        width: 500px;
+    }
+   
+}
+
+.floating-contact-button {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #1dd058;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.contact-icon i {
+    color: white;
+    font-size: 30px;
+}
+
+.contact-icon:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(38, 225, 47, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(225, 96, 38, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(225, 96, 38, 0);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .ignielHorizontal {
+        width: 558px;
+        padding: 6px 0;
+    }
+    /* Sembunyikan scroll bar */
+.ignielHorizontal::-webkit-scrollbar {
+    display: none; /* Untuk Chrome, Safari, dan Opera */
+}
+
+.ignielHorizontal {
+    -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+    scrollbar-width: none; /* Untuk Firefox */
+}
+    .category-container {
+        padding: 6px;
+        width: 539px;
+    }
+
+    .category-grid {
+        gap: 8px;
+    }
+
+    .category-item {
+        padding: 6px 10px;
+        font-size: 15px;
+        margin-right: 6px;
+    }
+    /* HEADER */
+    .judul-header {
+        width: 400px;
+        left: 80px;
+    }
+    .judul-header h1 {
+        font-size: 30px;
+    }
+    .judul-header p {
+        font-size: 14px;
+    }
+    .img-header img {
+        height: 300px;
+    }
+    .img-header img {
+        width: 558px;
+        height: 350px;
+        filter: brightness(70%);
+    }
+
+    /* Mengapa Memilih Stoodee */
+    .judul-content-satu {
+        width: 400px;
+        margin-left: 20%;
+    }
+    .judul-content-satu h1 {
+        font-size: 17px;
+    }
+    .content-satu {
+        flex-direction: column;
+    }
+
+    .content-satu .card {
+        flex: 0 0 100%;
+        margin-left: 120px;
+    }
+
+    .content-satu .card h1 {
+        font-size: 18px;
+    }
+
+    .content-satu .card p {
+        font-size: 14px;
+    }
+
+    /* Program */
+    .judul-content-dua {
+        width: 558px;
+    }
+    .content-dua {
+        width: 400px;
+        margin-left: 80px;
+    }
+    .content-dua .card {
+        width: 100%;
+        margin-left: 0;
+    }
+    .content-dua .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .review h1 {
+        background-color: #1dd058;
+        width: 100%;
+        margin-left: 20%;
+        padding: 10px;
+        color: #fff;
+        border-radius: 100px;
+    }
+    .swiper {
+        width: 558px;
+        left: -1px;
+    }
+
+    /* NEWS */
+    .news .card-news {
+        width: 100%;
+        padding: 0 15px;
+        margin-bottom: 30px;
+        margin-left: 80px;
+    }
+    .news .card-news .img-news {
+        height: 200px;
+    }
+    .news .card-news .deskripsi {
+        width: 350px;
+    }
+
+    /* ALAMAT */
+    .alamat {
+        margin-left: 55px;
+    }
+    .form-container {
+        margin-left: -30px;
+        width: 400px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 14px;
+    }
+    .footer {
+        width: 558px;
+        height: 50px;
+        background-color: #e16026;
+        margin-top: 10px;
+    }
+    
+}
+
+
 
 /* HEADER */
 .navbar {
@@ -651,7 +1988,7 @@ a {
 /* Ukuran layar 1366x768 */
 @media (max-width: 1366px) {
     .content-dua {
-        margin-left: 50px;
+        margin-left: 80px;
     }
 
     .content-dua .card {
@@ -878,36 +2215,8 @@ a {
     }
 }
 
-/* Responsive design */
-@media screen and (max-width: 600px) {
-    .ad-modal-content {
-        margin: 20% auto;
-        width: 95%;
-    }
-
-    .ad-title {
-        font-size: 20px;
-    }
-
-    .ad-description {
-        font-size: 14px;
-    }
-
-    .ad-cta {
-        font-size: 16px;
-        padding: 8px 16px;
-    }
-}
 
 @media screen and (max-width: 450px) {
-       .ad-modal-content {
-                padding: 15px;
-            }
-
-            .ad-cta {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
     /* Header */
     .judul-header {
         left: 55px;
@@ -1065,18 +2374,6 @@ a {
 }
 
 @media screen and (max-width: 400px) {
-    .ad-modal-content {
-                padding: 10px;
-            }
-
-            .ad-close {
-                font-size: 24px;
-            }
-
-            .ad-cta {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
     /* HEADER */
     .judul-header {
         width: 400px;

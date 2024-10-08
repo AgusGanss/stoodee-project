@@ -30,6 +30,7 @@
             <th>Gambar Blog</th>
             <th>Judul Blog</th>
             <th>Tanggal</th>
+            <th>Kategori</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -47,6 +48,7 @@
             </td>
             <td data-label="Judul Blog">{!! highlightWords($blogs->judul_blog, $search) !!}</td>
             <td data-label="Tanggal">{{ $blogs->tanggal }}</td>
+            <td data-label="Tanggal">{{ $blogs->kategori->kategori }}</td>
 
             <td data-label="Aksi" class="action-buttons">
               <a href="{{ route('blog.edit', $blogs->id) }}" class="btn btn-edit">

@@ -57,6 +57,26 @@ class ReviewController extends Controller
         return redirect()->route('review')->with('insert-review', 'Add Data Success');
     }
 
+    public function insert_home(Request $request){
+        $request->validate([
+            'review' => 'required',
+            // tambahkan validasi lain jika diperlukan
+        ], [
+            'review.required' => 'The description field is required.',
+            // tambahkan pesan kustom lain jika diperlukan
+        ]);
+        $review = Review::create($request->all());
+
+
+        if($request->hasFile('profil')){
+            $request->file('profil')->move('foto/', $request->file('profil')->getClientOriginalName());
+            $review->profil = $request->file('profil')->getClientOriginalName();
+            $review->save();
+        }
+
+        return redirect()->route('home')->with('insert-review-home', 'Add Data Success');
+    }
+
     public function edit($id){
         $review = Review::find($id);
         $general = General::first();

@@ -24,8 +24,8 @@
 
 <body>
     {{-- IKLAN --}}
-    
-    @if(isset($iklan) && $iklan)
+
+    @if (isset($iklan) && $iklan)
     <div id="adModal" class="ad-modal">
         <div class="ad-modal-content">
             <span class="ad-close">&times;</span>
@@ -37,7 +37,10 @@
             </div>
         </div>
     </div>
-    @endif
+@endif
+
+
+
 
     {{-- HEADER --}}
 
@@ -115,11 +118,58 @@
 
 
     {{-- REVIEW --}}
-    <div class="review">
-        <h1>TESTIMONI</h1>
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
+    <div class="popup-container" id="popupContainer">
+        <div class="popup">
+            <button class="close-btn" onclick="closePopup()">&times;</button>
+            <form class="elegant-form" id="reviewForm" action="{{ route('review.insert.home') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <h2>Add Review</h2>
+                <div class="form-group image-input-group">
+                    <label for="profil">Profil Reviewer</label>
+                    <input type="file" id="profil" name="profil" accept="image/*">
+                    <label for="profil">Choose Image</label>
+                    <div class="image-preview" id="imagePreview">
+                        <img src="#" alt="Image Preview" id="previewImage" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nama">Nama Reviewer</label>
+                    <input type="text" id="nama" name="nama" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="review">Review</label>
+                    <textarea id="review" name="review" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group rating-group">
+                    <label>Rating</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required/>
+                        <label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                        <input type="radio" id="star4" name="rating" value="4" />
+                        <label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                        <input type="radio" id="star3" name="rating" value="3" />
+                        <label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                        <input type="radio" id="star2" name="rating" value="2" />
+                        <label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                        <input type="radio" id="star1" name="rating" value="1" />
+                        <label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <div class="review" id="review">
+        <h1>TESTIMONI</h1>
+        <button class="open-popup-btn" onclick="openPopup()"><i class="bi bi-chat-left-text" style="font-size: 20px"></i></button>
+        <div class="swiper mySwiper">  
+            <div class="swiper-wrapper">
                 @foreach ($review as $reviews)
                     <div class="swiper-slide">
                         <div class="testimonialBox">
@@ -141,22 +191,26 @@
                         </div>
                     </div>
                 @endforeach
-
-
-
-
-
             </div>
         </div>
+        
     </div>
 
-
+    {{-- KATEGORI --}}
+    <div class="ignielHorizontal" id="scrollContainer">
+        <ul id="menuList">
+            @foreach ($kategori as $kategoris)
+                <li><a href="{{ route('blog.fillter', $kategoris->slug) }}" class="category-item">
+                        {{ $kategoris->kategori }}
+                    </a></li>
+            @endforeach
+        </ul>
+    </div>
 
 
 
     {{-- NEWS --}}
     <div class="news">
-
         @foreach ($blog as $blogs)
             <div class="card-news">
                 <img class="img-news" src="{{ asset('foto/' . $blogs->gambar_blog) }}" alt="FOTO BERITA">
@@ -349,32 +403,112 @@
     @endif
 
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('adModal');
+    const closeButton = modal ? modal.querySelector('.ad-close') : null;
+
+    // Function to open the modal
+    function openModal() {
+        if (modal) {
+            modal.classList.add('show'); // Menambahkan class show untuk menampilkan modal
+        }
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('show'); // Menghapus class show untuk menyembunyikan modal
+        }
+    }
+
+    // Open the modal when the page loads
+    if (modal) {
+        openModal();
+    }
+
+    // Close the modal when clicking on the close button
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    // Close the modal when clicking outside of it
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Optional: Close the modal when pressing the "Esc" key
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+});
+
+  </script>
+
+
     <script>
-        // Function to open the modal
-        function openModal() {
-            const modal = document.getElementById('adModal');
-            modal.classList.add('show');
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollContainer = document.querySelector(".ignielHorizontal");
 
-        // Function to close the modal
-        function closeModal() {
-            const modal = document.getElementById('adModal');
-            modal.classList.remove('show');
-        }
+            // Event listener untuk mendeteksi scroll
+            scrollContainer.addEventListener("scroll", function() {
+                const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
-        // Open the modal when the page loads (you can trigger this when you want)
-        window.addEventListener('load', openModal);
-
-        // Close the modal when clicking on the close button
-        document.querySelector('.ad-close').onclick = closeModal;
-
-        // Close the modal when clicking outside of it
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('adModal')) {
-                closeModal();
-            }
-        }
+                // Jika scroll sudah mencapai akhir, kembalikan ke awal
+                if (scrollContainer.scrollLeft >= maxScrollLeft) {
+                    scrollContainer.scrollLeft = 0;
+                }
+            });
+        });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profilInput = document.getElementById('profil');
+        const previewImage = document.getElementById('previewImage');
+        const reviewForm = document.getElementById('reviewForm');
+
+        profilInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    function openPopup() {
+        document.getElementById('popupContainer').style.display = 'flex';
+    }
+
+    function closePopup() {
+        document.getElementById('popupContainer').style.display = 'none';
+    }
+</script>
+
+
+@if(session('insert-review-home'))
+    <script>
+    Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Your work has been saved",
+  showConfirmButton: false,
+  timer: 1500
+});
+    </script>
+@endif
+
+
+
 </body>
 
 </html>

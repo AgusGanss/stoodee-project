@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->date('tanggal');
             $table->text('content_blog');
+            $table->unsignedBigInteger('kategori_id');
             $table->timestamps();
         });
     }

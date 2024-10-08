@@ -141,6 +141,11 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
+              <a class="nav-link" href="{{ route('kategori') }}">
+                  <i class="fas fa-fw fa-table"></i>
+                  <span>Kategori</span></a>
+          </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('blog') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Berita</span></a>
@@ -760,6 +765,66 @@ Toast.fire({
 </script>
 @endif
 @if(session('delete-iklandalam'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Delete Data Success"
+});
+</script>
+@endif
+
+
+
+@if(session('insert-kategori'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Add Data Success"
+});
+</script>
+@endif
+@if(session('update-kategori'))
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Update Data Success"
+});
+</script>
+@endif
+@if(session('delete-kategori'))
 <script>
   const Toast = Swal.mixin({
   toast: true,
